@@ -1,8 +1,8 @@
 function Header() {
   return (
-    <header className="flex items-center gap-2 p-2">
-      <img src="assets/icons/48.png" width="48" height="48" alt="logo" />
-      <h1 className="font-semibold text-lg">Chat GPT Prompts</h1>
+    <header className="flex items-center gap-2 p-2 bg-primary-900">
+      <img src="assets/icons/32.png" width="32" height="32" alt="logo" />
+      <h1 className="font-bold text-md">Chat GPT Prompts</h1>
     </header>
   );
 }
