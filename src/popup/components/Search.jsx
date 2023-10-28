@@ -11,7 +11,7 @@ function Search() {
         autoFocus
         id="search"
         type="text"
-        placeholder="Search"
+        placeholder="Use keywords like 'greeting' or 'joke'"
         onChange={handleChange}
         className="
         p-2 
