@@ -5,7 +5,10 @@ import Prompt from "./Prompt";
 function Prompts() {
 
   runOnExtension(() => {
-    log("Getting current tab...");
+    // Add a listener for changes in storage
+    chrome.storage.onChanged.addListener(function(changes, areaName) {
+      console.log("Changes in storage: ", changes, 'AreaName',areaName);
+    });
   })
 
   return (

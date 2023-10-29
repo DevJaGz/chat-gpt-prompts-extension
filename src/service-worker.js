@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(() => {
   const extensionId = chrome.runtime.id;
   log("service-worker - onInstalled - extensionId", extensionId);
   // Use the `chrome.storage` API to retrieve all data stored for the extension.
-  chrome.storage.local.get(extensionId, (data) => {
+  chrome.storage.local.get("dummy", (data) => {
     // Initialize the extension with the stored data.
     // ...
     console.log("service-worker - local storage", data);

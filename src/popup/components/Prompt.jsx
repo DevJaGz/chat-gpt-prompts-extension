@@ -1,8 +1,24 @@
+
 function Prompt() {
+
+  
+  const addDummy   = () => {
+    chrome.storage.local.set({dummy: 'dummy'}, function() {
+      console.log('Value is set to ' + 'dummy');
+    });
+  }
+
+  const removeDummy   = () => {
+    chrome.storage.local.remove('dummy', function() {
+      console.log('Value is REMOVED ' + 'dummy');
+    });
+  }
+
+
   return (
     <div className="rounded py-2 px-3 bg-primary-800">
       <header className="flex justify-between items-center flex-nowrap gap-1">
-        <h4 className=" font-bold text-ellipsis overflow-hidden whitespace-nowrap max-w-xs text-primary-50">
+        <h4 className=" font-bold text-ellipsis overflow-hidden whitespace-nowrap max-w-[200px] text-primary-50">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
           voluptatibus.
         </h4>
@@ -15,7 +31,7 @@ function Prompt() {
         <p className="text-base">Collapsible content...</p>
       </details>
       <footer className="mt-4 flex gap-4">
-        <button className="confirmation-btn text-sm">
+        <button className="confirmation-btn text-sm" onClick={addDummy}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-prompt"
@@ -52,7 +68,7 @@ function Prompt() {
             <path d="M13.5 6.5l4 4"></path>
           </svg>
         </button>
-        <button className="ml-auto reject-btn text-sm">
+        <button className="ml-auto reject-btn text-sm" onClick={removeDummy}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-trash"
