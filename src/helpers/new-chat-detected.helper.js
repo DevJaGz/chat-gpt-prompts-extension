@@ -4,6 +4,8 @@ import {
   CONVERSATION_BUTTON_LABEL,
   USER_PROMPT_MATCHER,
 } from "../constants/conversations.constant";
+import { MESSAGE_TYPE } from "../constants/messages.constant";
+import { showSaveConversationDialog } from "./conversations-dialog.helper";
 
 let currentChatId = "";
 
@@ -89,15 +91,18 @@ const drawConversationButtons = ($conversation) => {
   if (hasConversationButton($conversation)) {
     return;
   }
+  const userPromt = extractUserPrompt($conversation);
+  if (!userPromt) {
+    console.error("Could not find user prompt");
+    return;
+  }
   const clickHandler = () => {
-    const userPromt = extractUserPrompt($conversation);
-    if (!userPromt) {
-      console.error("Could not find user prompt");
-      return;
-    }
-    console.log(
-      `click: ${JSON.stringify(userPromt, null, 2)}, Chat Id: ${currentChatId}`
-    );
+    showSaveConversationDialog({
+      type: MESSAGE_TYPE.showDialogToSaveConversation,
+      chatId: currentChatId,
+      userPromt,
+      createdDate: new Date().toISOString(),
+    });
   };
   const $button = createButton(CONVERSATION_BUTTON_LABEL, { clickHandler });
   $conversation.appendChild($button);

@@ -67,4 +67,8 @@
       @apply bg-gradient-to-t from-primary-700 to-primary-800/5;
     }
   }
+
+  .gptp-dialog-container {
+    @apply absolute inset-0;
+  }
 }
