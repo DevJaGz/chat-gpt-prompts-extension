@@ -3,7 +3,7 @@ import Search from "./Search"
 
 function Main() {
   return (
-    <main className="p-2 bg-primary-800">
+    <main className="p-2 bg-primary-700">
       <Search />
       <Prompts />
     </main>

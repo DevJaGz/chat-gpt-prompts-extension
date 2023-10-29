@@ -2,7 +2,7 @@ import Prompt from "./Prompt";
 
 function Prompts() {
   return (
-    <ul>
+    <ul className="mt-6">
       <li>
       <Prompt />
       </li>

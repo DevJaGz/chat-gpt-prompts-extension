@@ -18,7 +18,7 @@ function Search() {
         rounded-none 
         border-b-[2px]
         border-b-primary-500
-        bg-primary-800 
+        bg-primary-700 
         focus:outline-none 
         focus:ring-0
         focus:border-accent-green-500 "
