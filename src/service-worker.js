@@ -6,12 +6,6 @@ import {
 } from "./constants/url.constant";
 import { log, notifyTabMessage } from "./utils/notifications.util";
 
-// Listen for the `chrome.runtime.onInstalled` event.
-chrome.runtime.onInstalled.addListener(() => {
-  // Get the extension's ID.
-  log("service-worker Installed", "😊");
-});
-
 const getChatIdFromURL = (tabId, tab) => {
   // Get the URL of the tab
   const URL = tab?.url;
@@ -29,7 +23,7 @@ const getChatIdFromURL = (tabId, tab) => {
 
     // Message to send to the tab
     const message = {
-      type: MESSAGE_TYPE.NewChatDetected,
+      type: MESSAGE_TYPE.newChatDetected,
       chatId,
     };
 
@@ -48,5 +42,11 @@ function navigationCompletedListener({ tabId, url }) {
   getChatIdFromURL(tabId, tab);
 }
 
+// Listen for the `chrome.runtime.onInstalled` event.
+chrome.runtime.onInstalled.addListener(() => {
+  // Get the extension's ID.
+  log("service-worker Installed", "😊");
+});
+
 chrome.tabs.onUpdated.addListener(tabUpdatedListener);
-// chrome.webNavigation.onCompleted.addListener(navigationCompletedListener);
+chrome.webNavigation.onCompleted.addListener(navigationCompletedListener);

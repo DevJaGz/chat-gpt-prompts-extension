@@ -43,6 +43,12 @@
     @apply flex flex-nowrap gap-1 items-center bg-accent-red-800 text-white border border-accent-red-600 py-2 px-4 rounded  hover:bg-accent-red-700  focus:ring-1 focus:ring-accent-red-600;
   }
 
+  .conversation-btn {
+    float: right;
+    margin: 1rem;
+    @apply flex flex-nowrap gap-1 items-center bg-primary-800 text-white border border-primary-600 py-2 px-4 rounded  hover:bg-primary-700  focus:ring-1 focus:ring-primary-600;
+  }
+
   .bottom-overlay {
     position: relative;
     &::after {
