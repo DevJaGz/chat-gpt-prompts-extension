@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* width */
+::-webkit-scrollbar {
+  width: 0.4rem;
+  height: 0.4rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: theme("colors.primary.800");
+  border-radius: 20rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: theme("colors.primary.500");
+  border-radius: 20rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: theme("colors.primary.400");
+}
+
 @layer utilities {
   .rtl {
     direction: rtl;
@@ -9,14 +32,33 @@
   }
 
   .default-btn {
-    @apply flex gap-1 items-center bg-primary-800 text-white border border-primary-600 py-2 px-4 rounded  hover:bg-primary-700  focus:ring-1 focus:ring-primary-600;
+    @apply flex flex-nowrap gap-1 items-center bg-primary-800 text-white border border-primary-600 py-2 px-4 rounded  hover:bg-primary-700  focus:ring-1 focus:ring-primary-600;
   }
 
   .confirmation-btn {
-    @apply flex gap-1 items-center bg-accent-green-800 text-white border border-accent-green-600 py-2 px-4 rounded  hover:bg-accent-green-700  focus:ring-1 focus:ring-accent-green-600;
+    @apply flex flex-nowrap gap-1 items-center bg-accent-green-800 text-white border border-accent-green-600 py-2 px-4 rounded  hover:bg-accent-green-700  focus:ring-1 focus:ring-accent-green-600;
   }
 
   .reject-btn {
-    @apply flex gap-1 items-center bg-accent-red-800 text-white border border-accent-red-600 py-2 px-4 rounded  hover:bg-accent-red-700  focus:ring-1 focus:ring-accent-red-600;
+    @apply flex flex-nowrap gap-1 items-center bg-accent-red-800 text-white border border-accent-red-600 py-2 px-4 rounded  hover:bg-accent-red-700  focus:ring-1 focus:ring-accent-red-600;
+  }
+
+  .bottom-overlay {
+    position: relative;
+    &::after {
+      content: "";
+      // background: linear-gradient(
+      //   to top,
+      //   #40414f 0%,
+      //   rgba(#343541, 0.5) 85%,
+      //   transparent 100%
+      // );
+      position: absolute;
+      width: 100%;
+      height: 2.5rem;
+      bottom: 0;
+      left: 0;
+      @apply bg-gradient-to-t from-primary-700 to-primary-800/5;
+    }
   }
 }
