@@ -5,7 +5,7 @@ function Search() {
   };
 
   return (
-    <form className="flex flex-col gap-1">
+    <form className="flex flex-col gap-1 animate-fade-right animate-duration-500">
       <label htmlFor="search">Search for a Prompt</label>
       <input
         autoFocus
