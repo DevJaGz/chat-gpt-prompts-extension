@@ -3,31 +3,31 @@ import Prompt from "./Prompt";
 function Prompts() {
   return (
     <ul className="mt-6 flex flex-col gap-2 pb-8 max-h-[300px] overflow-y-auto ">
-      <li className="pr-2 animate-fade-right animate-duration-500">
+      <li className="pr-2 animate-fade-left animate-duration-500">
         <Prompt />
       </li>
-      <li className="pr-2 animate-fade-right animate-duration-500 animate-delay-[50ms]">
+      <li className="pr-2 animate-fade-left animate-duration-500 animate-delay-[50ms]">
         <Prompt />
       </li>{" "}
-      <li className="pr-2 animate-fade-right animate-duration-500 animate-delay-100">
+      <li className="pr-2 animate-fade-left animate-duration-500 animate-delay-100">
         <Prompt />
       </li>{" "}
-      <li className="pr-2 animate-fade-right animate-duration-500 animate-delay-150">
+      <li className="pr-2 animate-fade-left animate-duration-500 animate-delay-150">
         <Prompt />
       </li>{" "}
-      <li className="pr-2 animate-fade-right animate-duration-500 animate-delay-200">
+      <li className="pr-2 animate-fade-left animate-duration-500 animate-delay-200">
         <Prompt />
       </li>{" "}
-      <li className="pr-2 animate-fade-right animate-duration-500 animate-delay-[250ms]">
+      <li className="pr-2 animate-fade-left animate-duration-500 animate-delay-[250ms]">
         <Prompt />
       </li>{" "}
-      <li className="pr-2 animate-fade-right animate-duration-500 animate-delay-300">
+      <li className="pr-2 animate-fade-left animate-duration-500 animate-delay-300">
         <Prompt />
       </li>{" "}
-      <li className="pr-2 animate-fade-right animate-duration-500 animate-delay-[350ms]">
+      <li className="pr-2 animate-fade-left animate-duration-500 animate-delay-[350ms]">
         <Prompt />
       </li>{" "}
-      <li className="pr-2 animate-fade-right animate-duration-500 animate-delay-400">
+      <li className="pr-2 animate-fade-left animate-duration-500 animate-delay-400">
         <Prompt />
       </li>
     </ul>
