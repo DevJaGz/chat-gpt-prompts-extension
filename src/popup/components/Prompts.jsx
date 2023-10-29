@@ -1,6 +1,13 @@
+import { log } from "../../utils/notifications.util";
+import { runOnProduction } from "../../utils/production.util";
 import Prompt from "./Prompt";
 
 function Prompts() {
+
+  runOnProduction(() => {
+    log("Getting current tab...");
+  })
+
   return (
     <ul className="mt-6 flex flex-col gap-2 pb-8 max-h-[300px] overflow-y-auto ">
       <li className="pr-2 animate-fade-left animate-duration-500">
