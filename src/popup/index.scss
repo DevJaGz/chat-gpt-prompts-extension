@@ -9,6 +9,10 @@
   }
 
   .default-btn {
-    @apply bg-primary-800 text-white border border-primary-550 py-2 px-4 rounded  hover:bg-primary-700  focus:ring-1 focus:ring-primary-550;
+    @apply bg-primary-800 text-white border border-primary-600 py-2 px-4 rounded  hover:bg-primary-700  focus:ring-1 focus:ring-primary-600;
+  }
+
+  .confirmation-btn {
+    @apply bg-accent-green-800 text-white border border-accent-green-600 py-2 px-4 rounded  hover:bg-accent-green-700  focus:ring-1 focus:ring-accent-green-600;
   }
 }

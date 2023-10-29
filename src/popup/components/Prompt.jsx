@@ -11,13 +11,13 @@ function Prompt() {
         </small>
       </header>
       <main className="mt-2">
-        <p className="text-primary-100">
+        <p className="text-primary-100 h-24">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
           voluptatibus.
         </p>
       </main>
       <footer className="mt-4 flex gap-4">
-        <button className="default-btn text-sm">Copy</button>
+        <button className="confirmation-btn text-sm">Copy</button>
         <button className="default-btn text-sm">Edit</button>
         <button className="ml-auto default-btn text-sm">Save</button>
       </footer>
