@@ -1,5 +1,5 @@
-export const runOnProduction = (callback) => {
-  if (import.meta.env.MODE !== "development") {
+export const runOnExtension = (callback) => {
+  if (import.meta.env.MODE === "production") {
     callback();
   }
 };

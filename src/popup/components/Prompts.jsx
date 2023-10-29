@@ -1,10 +1,10 @@
 import { log } from "../../utils/notifications.util";
-import { runOnProduction } from "../../utils/production.util";
+import { runOnExtension } from "../../utils/production.util";
 import Prompt from "./Prompt";
 
 function Prompts() {
 
-  runOnProduction(() => {
+  runOnExtension(() => {
     log("Getting current tab...");
   })
 
