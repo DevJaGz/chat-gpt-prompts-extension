@@ -15,9 +15,66 @@ function Prompt() {
         <p className="text-base">Collapsible content...</p>
       </details>
       <footer className="mt-4 flex gap-4">
-        <button className="confirmation-btn text-sm">Load to Chat</button>
-        <button className="default-btn text-sm">Edit</button>
-        <button className="ml-auto default-btn text-sm">Save</button>
+        <button className="confirmation-btn text-sm">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-prompt"
+            width={16}
+            height={16}
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M5 7l5 5l-5 5"></path>
+            <path d="M13 17l6 0"></path>
+          </svg>
+          Load to Chat
+        </button>
+        <button className="default-btn text-sm">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-pencil"
+            width={16}
+            height={16}
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+            <path d="M13.5 6.5l4 4"></path>
+          </svg>
+          Edit
+        </button>
+        <button className="ml-auto reject-btn text-sm">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-trash"
+            width={16}
+            height={16}
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M4 7l16 0"></path>
+            <path d="M10 11l0 6"></path>
+            <path d="M14 11l0 6"></path>
+            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+          </svg>
+          Delete
+        </button>
       </footer>
     </div>
   );
