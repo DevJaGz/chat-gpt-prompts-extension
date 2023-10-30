@@ -5,7 +5,7 @@ function Main() {
   return (
     <main className="p-2 bg-primary-700">
       <Search />
-      <section className="bottom-overlay">
+      <section className="bottom-overlay-700">
         <Prompts />
       </section>
     </main>
