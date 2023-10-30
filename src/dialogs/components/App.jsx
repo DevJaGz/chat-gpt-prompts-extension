@@ -6,7 +6,7 @@ import SaveDialog from "./Save-dialog";
 
 function App() {
   const [modalType, setModalType] = useState("");
-  const [userPromptLabel, setUserPromptLabel] = useState("");
+  const [userPromptMessage, setUserPromptMessage] = useState("");
   const [searchValue, setSearchValue] = useState(null);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function App() {
       const { type, userPrompt } = message;
       if (type === MESSAGE_TYPE.showDialogToSaveConversation) {
         setModalType("save");
-        setUserPromptLabel(userPrompt);
+        setUserPromptMessage(userPrompt);
       }
 
       if (type === MESSAGE_TYPE.resetDialog) {
@@ -38,7 +38,7 @@ function App() {
 
   const reset = async () => { 
     setModalType("");
-    setUserPromptLabel("");
+    setUserPromptMessage("");
     setSearchValue(null);
   };
 
@@ -62,7 +62,7 @@ function App() {
     return (
       <>
       <div className="fixed inset-0 text-base h-full">
-            <SaveDialog closeCallback={closeCallback} saveCallback={saveCallback} searchCallback={searchCallback} initialSearchValue={searchValue} userPromptLabel={userPromptLabel}  />
+            <SaveDialog closeCallback={closeCallback} saveCallback={saveCallback} searchCallback={searchCallback} initialSearchValue={searchValue} userPromptMessage={userPromptMessage}  />
       </div>
       </>
     );

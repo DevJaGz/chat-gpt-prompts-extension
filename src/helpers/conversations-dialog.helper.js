@@ -50,7 +50,7 @@ const saveDialog = async (message) => {
   await chrome.runtime.sendMessage(message);
 };
 
-export const saveConversationDialog = async (message, callback) => {
+export const savePromptDialog = async (message, callback) => {
   if (isBussy) {
     await chrome.runtime.sendMessage({ type: MESSAGE_TYPE.resetDialog });
     closeDialog();

@@ -5,6 +5,7 @@ import {
   TARGET_URL,
 } from "./constants/url.constant";
 import { log, notifyTabMessage } from "./utils/notifications.util";
+import { initializeStorage } from "./utils/storage.util";
 
 const getChatIdFromURL = (tabId, tab) => {
   // Get the URL of the tab
@@ -44,7 +45,7 @@ function navigationCompletedListener({ tabId, url }) {
 
 // Listen for the `chrome.runtime.onInstalled` event.
 chrome.runtime.onInstalled.addListener(() => {
-  // Get the extension's ID.
+  initializeStorage();
   log("service-worker Installed", "😊");
 });
 

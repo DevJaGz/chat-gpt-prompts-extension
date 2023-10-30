@@ -5,7 +5,8 @@ import {
   USER_PROMPT_MATCHER,
 } from "../constants/conversations.constant";
 import { MESSAGE_TYPE } from "../constants/messages.constant";
-import { saveConversationDialog } from "./conversations-dialog.helper";
+import { savePrompt } from "../utils/storage.util";
+import { savePromptDialog } from "./conversations-dialog.helper";
 
 let currentChatId = "";
 
@@ -106,7 +107,7 @@ const drawConversationButtons = ($conversation) => {
       chatId: currentChatId,
       userPrompt,
     };
-    saveConversationDialog(dialogMessage, ({ hasSave, promptName }) => {
+    savePromptDialog(dialogMessage, ({ hasSave, promptName }) => {
       const messageToSave = {
         chatId: currentChatId,
         userPrompt,
@@ -115,7 +116,7 @@ const drawConversationButtons = ($conversation) => {
         createdDate: new Date().toISOString(),
       };
       if (hasSave) {
-        console.log("Saving conversation with name: ", messageToSave);
+        savePrompt(messageToSave);
         return;
       }
       console.log("Cancel saving");
