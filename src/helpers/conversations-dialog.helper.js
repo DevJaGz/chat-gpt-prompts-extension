@@ -1,4 +1,5 @@
 import { DIALOG_ID } from "../constants/conversations.constant";
+import { MESSAGE_TYPE } from "../constants/messages.constant";
 
 let isBaseDialogInserted = false;
 let $dialog = null;
@@ -22,9 +23,15 @@ export const insertBaseDialog = () => {
   document.body.insertBefore(section, document.body.firstChild);
 };
 
-const saveDialog = (message) => {
+const saveDialog = async (message) => {
   $dialog.classList.add("gptp-dialog--show");
-  chrome.runtime.sendMessage(message);
+  await chrome.runtime.sendMessage(message);
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    const { type } = message;
+    if (type === MESSAGE_TYPE.closeDialog) {
+      $dialog.classList.remove("gptp-dialog--show");
+    }
+  });
 };
 
 export const showSaveConversationDialog = (message) => {

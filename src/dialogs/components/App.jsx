@@ -10,9 +10,9 @@ function App() {
 
   useEffect(() => {
     console.log("USE EFFECT REACT", modalType);
-    const messageListener = (data) => {
-      console.log("MESSAGE LISTENER", data);
-      const { type, userPrompt } = data;
+    const messageListener = (message, sender, sendResponse) => {
+      console.log("MESSAGE LISTENER", message);
+      const { type, userPrompt } = message;
       if (type === MESSAGE_TYPE.showDialogToSaveConversation) {
         setModalType("save");
         setUserPromptLabel(userPrompt);
@@ -31,8 +31,14 @@ function App() {
   }, []);
 
 
-  const closeCallback = () => { 
+  const close = () => { 
     setModalType("other");
+    setUserPromptLabel("");
+    chrome.runtime.sendMessage({ type: MESSAGE_TYPE.closeDialog });
+  };
+
+  const closeCallback = () => { 
+    close();
   };
 
   if (modalType === "save") {
