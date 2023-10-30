@@ -1,4 +1,5 @@
 import { MESSAGE_TYPE } from "./constants/messages.constant";
+import { insertBaseDialog } from "./helpers/conversations-dialog.helper";
 import { newChatDetectedHandler } from "./helpers/new-chat-detected.helper";
 import { log } from "./utils/notifications.util";
 
@@ -15,5 +16,6 @@ function messageListener(message, sender, sendResponse) {
 
 (() => {
   log("content-script.js", "😊");
+  insertBaseDialog();
   chrome.runtime.onMessage.addListener(messageListener);
 })();

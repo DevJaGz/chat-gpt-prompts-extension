@@ -12,3 +12,4 @@ export const CONVERSATION_BUTTON_LABEL = "Save Prompt";
 export const CONVERSATION_BUTTON_CSS_CLASS = "conversation-btn";
 
 export const STORAGE_KEY = "_GPTP_";
+export const DIALOG_ID = "gptp-dialog";
