@@ -32,6 +32,8 @@ function App() {
 
 
   const close = async () => { 
+    setModalType("other");
+    setUserPromptLabel("");
     const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
     await chrome.tabs.sendMessage(tab.id, { type: MESSAGE_TYPE.closeDialog });
   };
