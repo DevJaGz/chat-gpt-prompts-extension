@@ -5,8 +5,9 @@ import { useState } from "react";
 import SaveDialog from "./Save-dialog";
 
 function App() {
-  const [modalType, setModalType] = useState("other");
+  const [modalType, setModalType] = useState("");
   const [userPromptLabel, setUserPromptLabel] = useState("");
+  const [searchValue, setSearchValue] = useState(null);
 
   useEffect(() => {
     console.log("USE EFFECT REACT", modalType);
@@ -16,6 +17,10 @@ function App() {
       if (type === MESSAGE_TYPE.showDialogToSaveConversation) {
         setModalType("save");
         setUserPromptLabel(userPrompt);
+      }
+
+      if (type === MESSAGE_TYPE.resetDialog) {
+        reset();
       }
     };
     runOnExtension(() => {
@@ -31,22 +36,33 @@ function App() {
   }, []);
 
 
-  const close = async () => { 
-    setModalType("other");
+  const reset = async () => { 
+    setModalType("");
     setUserPromptLabel("");
-    const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
-    await chrome.tabs.sendMessage(tab.id, { type: MESSAGE_TYPE.closeDialog });
+    setSearchValue(null);
   };
 
-  const closeCallback = () => { 
-    close();
+  const closeCallback = async () => { 
+    reset();
+    const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
+    await chrome.tabs.sendMessage(tab.id, { type: MESSAGE_TYPE.closeDialog, hasSave: false });
   };
+
+  const saveCallback = async () => { 
+    reset();
+    const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
+    await chrome.tabs.sendMessage(tab.id, { type: MESSAGE_TYPE.closeDialog, hasSave: true, promptName: searchValue });
+  };
+
+  const searchCallback = (value) => {
+    setSearchValue(value);
+  }
 
   if (modalType === "save") {
     return (
       <>
       <div className="fixed inset-0 text-base h-full">
-            <SaveDialog closeCallback={closeCallback} userPromptLabel={userPromptLabel} />
+            <SaveDialog closeCallback={closeCallback} saveCallback={saveCallback} searchCallback={searchCallback} initialSearchValue={searchValue} userPromptLabel={userPromptLabel}  />
       </div>
       </>
     );

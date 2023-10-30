@@ -85,7 +85,7 @@
     @apply fixed z-50 w-screen h-screen rounded bg-transparent  grid place-items-center;
 
     .gptp-dialog-iframe {
-      @apply h-80 rounded bg-transparent animate-fade-up animate-duration-500;
+      @apply h-80 w-4/5 max-w-xl rounded bg-transparent animate-fade-up animate-duration-500;
     }
 
     &:not(.gptp-dialog--show) {

@@ -5,7 +5,7 @@ import {
   USER_PROMPT_MATCHER,
 } from "../constants/conversations.constant";
 import { MESSAGE_TYPE } from "../constants/messages.constant";
-import { showSaveConversationDialog } from "./conversations-dialog.helper";
+import { saveConversationDialog } from "./conversations-dialog.helper";
 
 let currentChatId = "";
 
@@ -97,12 +97,21 @@ const drawConversationButtons = ($conversation) => {
     return;
   }
   const clickHandler = () => {
-    showSaveConversationDialog({
-      type: MESSAGE_TYPE.showDialogToSaveConversation,
-      chatId: currentChatId,
-      userPrompt,
-      createdDate: new Date().toISOString(),
-    });
+    saveConversationDialog(
+      {
+        type: MESSAGE_TYPE.showDialogToSaveConversation,
+        chatId: currentChatId,
+        userPrompt,
+        createdDate: new Date().toISOString(),
+      },
+      ({ hasSave, promptName }) => {
+        if (hasSave) {
+          console.log("Saving conversation with name: ", promptName);
+          return;
+        }
+        console.log("Cancel saving");
+      }
+    );
   };
   const $button = createButton(CONVERSATION_BUTTON_LABEL, { clickHandler });
   $conversation.appendChild($button);

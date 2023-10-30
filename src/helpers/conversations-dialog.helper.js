@@ -4,6 +4,16 @@ import { MESSAGE_TYPE } from "../constants/messages.constant";
 let isBaseDialogInserted = false;
 let $dialog = null;
 let $iFrame = null;
+let currentCallback = () => {};
+let isBussy = false;
+
+const closeDialog = () => {
+  $dialog.classList.remove("gptp-dialog--show");
+};
+
+const openDialog = () => {
+  $dialog.classList.add("gptp-dialog--show");
+};
 
 export const insertBaseDialog = () => {
   if (isBaseDialogInserted) {
@@ -26,20 +36,26 @@ export const insertBaseDialog = () => {
     sender,
     sendResponse
   ) {
-    console.log("request", request);
-    const { type } = request;
+    const { type, ...rest } = request;
     if (type === MESSAGE_TYPE.closeDialog) {
-      console.log("closeDialog");
-      $dialog.classList.remove("gptp-dialog--show");
+      closeDialog();
+      currentCallback(rest);
+      isBussy = false;
     }
   });
 };
 
 const saveDialog = async (message) => {
-  $dialog.classList.add("gptp-dialog--show");
+  openDialog();
   await chrome.runtime.sendMessage(message);
 };
 
-export const showSaveConversationDialog = (message) => {
+export const saveConversationDialog = async (message, callback) => {
+  if (isBussy) {
+    await chrome.runtime.sendMessage({ type: MESSAGE_TYPE.resetDialog });
+    closeDialog();
+  }
+  isBussy = true;
+  currentCallback = callback;
   saveDialog(message);
 };

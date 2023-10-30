@@ -1,8 +1,5 @@
-function Search({ label = "Search for a Prompt" }) {
-  
-  const handleChange = (event) => {
-    console.log(event.target.value);
-  };
+function Search({ label = "Search for a Prompt", searchCallback, initialValue}) {
+  const initialSearchValue = initialValue || "";
 
   return (
     <form className="flex flex-col gap-1 animate-fade-right animate-duration-500 ">
@@ -12,7 +9,8 @@ function Search({ label = "Search for a Prompt" }) {
         id="search"
         type="text"
         placeholder="Name"
-        onChange={handleChange}
+        value={initialSearchValue}
+        onChange={e => searchCallback(e.target.value)}
         className="
         p-2 
         rounded-none 
