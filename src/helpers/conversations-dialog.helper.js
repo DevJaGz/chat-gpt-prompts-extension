@@ -2,6 +2,7 @@ import { DIALOG_ID } from "../constants/conversations.constant";
 
 let isBaseDialogInserted = false;
 let $dialog = null;
+let $iFrame = null;
 
 export const insertBaseDialog = () => {
   if (isBaseDialogInserted) {
@@ -17,6 +18,7 @@ export const insertBaseDialog = () => {
   iFrame.sandbox = "allow-same-origin allow-scripts";
   section.appendChild(iFrame);
   $dialog = section;
+  $iFrame = iFrame;
   document.body.insertBefore(section, document.body.firstChild);
 };
 

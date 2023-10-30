@@ -3,18 +3,19 @@ import { MESSAGE_TYPE } from "../../constants/messages.constant";
 import { runOnExtension } from "../../utils/production.util";
 import { useState } from "react";
 import SaveDialog from "./Save-dialog";
-import Header from "./Header";
 
 function App() {
   const [modalType, setModalType] = useState("other");
+  const [userPromptLabel, setUserPromptLabel] = useState("");
 
   useEffect(() => {
     console.log("USE EFFECT REACT", modalType);
-    const messageListener = (message) => {
-      const { type } = message;
+    const messageListener = (data) => {
+      console.log("MESSAGE LISTENER", data);
+      const { type, userPrompt } = data;
       if (type === MESSAGE_TYPE.showDialogToSaveConversation) {
         setModalType("save");
-        console.log("Modal type change to save");
+        setUserPromptLabel(userPrompt);
       }
     };
     runOnExtension(() => {
@@ -37,8 +38,8 @@ function App() {
   if (modalType === "save") {
     return (
       <>
-      <div className="fixed inset-0 text-base h-ful">
-            <SaveDialog closeCallback={closeCallback} />
+      <div className="fixed inset-0 text-base h-full">
+            <SaveDialog closeCallback={closeCallback} userPromptLabel={userPromptLabel} />
       </div>
       </>
     );

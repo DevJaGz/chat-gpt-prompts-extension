@@ -11,7 +11,7 @@ function Search({ label = "Search for a Prompt" }) {
         autoFocus
         id="search"
         type="text"
-        placeholder="Name for your prompt"
+        placeholder="Name"
         onChange={handleChange}
         className="
         p-2 

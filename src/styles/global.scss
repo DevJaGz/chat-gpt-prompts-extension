@@ -68,15 +68,6 @@
     }
   }
 
-  .gptp-dialog-container {
-    @apply absolute inset-0;
-    display: none;
-  }
-
-  .gptp-dialog-container.gptp-show {
-    display: block !important;
-  }
-
   .gptp-dialog {
     @apply fixed z-50 w-screen h-screen rounded bg-transparent animate-fade-up animate-duration-500 grid place-items-center;
 
@@ -94,7 +85,15 @@
     }
   }
 
+  .gptp-dialog-container {
+    @apply relative h-fit min-w-[30rem] min-h-[10rem] max-w-[90vw] rounded soverflow-hidden;
+
+    .gptp-dialog-iframe {
+      @apply absolute inset-0 top-0 right-0 left-0 bottom-0 w-full h-full rounded bg-transparent;
+    }
+  }
+
   .gptp-dialog-iframe {
-    @apply block  rounded bg-transparent h-fit;
+    @apply h-80 rounded bg-transparent;
   }
 }

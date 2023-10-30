@@ -91,8 +91,8 @@ const drawConversationButtons = ($conversation) => {
   if (hasConversationButton($conversation)) {
     return;
   }
-  const userPromt = extractUserPrompt($conversation);
-  if (!userPromt) {
+  const userPrompt = extractUserPrompt($conversation);
+  if (!userPrompt) {
     console.error("Could not find user prompt");
     return;
   }
@@ -100,7 +100,7 @@ const drawConversationButtons = ($conversation) => {
     showSaveConversationDialog({
       type: MESSAGE_TYPE.showDialogToSaveConversation,
       chatId: currentChatId,
-      userPromt,
+      userPrompt,
       createdDate: new Date().toISOString(),
     });
   };
