@@ -16,6 +16,12 @@ function messageListener(message, sender, sendResponse) {
 
 (() => {
   log("content-script.js", "😊");
-  insertBaseDialog();
+  const iFrame = document.createElement("iframe");
+  iFrame.src = chrome.runtime.getURL("src/dialogs/index.html");
+  iFrame;
+  iFrame.classList.add("gptp-dialog-iframe");
+  iFrame.allowtransparency = "true";
+  iFrame.sandbox = "allow-same-origin allow-scripts";
+  document.body.insertBefore(iFrame, document.body.firstChild);
   chrome.runtime.onMessage.addListener(messageListener);
 })();

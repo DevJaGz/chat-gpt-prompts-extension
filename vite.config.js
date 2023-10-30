@@ -13,6 +13,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         popup: resolve(__dirname, "src", "popup", "index.html"),
+        dialogs: resolve(__dirname, "src", "dialogs", "index.html"),
       },
       output: {
         chunkFileNames: "[name].js",

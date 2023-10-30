@@ -26,7 +26,7 @@
   "web_accessible_resources": [
     {
       "matches": ["https://chat.openai.com/*"],
-      "resources": ["assets/index.css"]
+      "resources": ["assets/index.css", "src/dialogs/index.html"]
     }
   ],
   "host_permissions": ["https://chat.openai.com/*"],

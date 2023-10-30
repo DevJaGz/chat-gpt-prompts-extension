@@ -118,4 +118,8 @@ export const newChatDetectedHandler = async (chatId) => {
   for (const conversation$ of conversations) {
     drawConversationButtons(conversation$);
   }
+  await chrome.runtime.sendMessage({
+    type: MESSAGE_TYPE.showDialogToSaveConversation,
+    chatId,
+  });
 };
