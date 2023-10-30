@@ -31,10 +31,9 @@ function App() {
   }, []);
 
 
-  const close = () => { 
-    setModalType("other");
-    setUserPromptLabel("");
-    chrome.runtime.sendMessage({ type: MESSAGE_TYPE.closeDialog });
+  const close = async () => { 
+    const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
+    await chrome.tabs.sendMessage(tab.id, { type: MESSAGE_TYPE.closeDialog });
   };
 
   const closeCallback = () => { 

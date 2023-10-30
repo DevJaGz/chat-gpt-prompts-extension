@@ -21,17 +21,23 @@ export const insertBaseDialog = () => {
   $dialog = section;
   $iFrame = iFrame;
   document.body.insertBefore(section, document.body.firstChild);
+  chrome.runtime.onMessage.addListener(function (
+    request,
+    sender,
+    sendResponse
+  ) {
+    console.log("request", request);
+    const { type } = request;
+    if (type === MESSAGE_TYPE.closeDialog) {
+      console.log("closeDialog");
+      $dialog.classList.remove("gptp-dialog--show");
+    }
+  });
 };
 
 const saveDialog = async (message) => {
   $dialog.classList.add("gptp-dialog--show");
   await chrome.runtime.sendMessage(message);
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    const { type } = message;
-    if (type === MESSAGE_TYPE.closeDialog) {
-      $dialog.classList.remove("gptp-dialog--show");
-    }
-  });
 };
 
 export const showSaveConversationDialog = (message) => {
