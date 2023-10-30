@@ -6,7 +6,7 @@ function SaveDialog({ closeCallback, userPromptLabel }) {
     <div class="bg-primary-900 text-primary-100 h-full flex flex-col">
       <Header title="Save Prompt" closeCallback={closeCallback} />
       <div className="bottom-overlay-900">
-        <p className="line-clamp-3 max-h-[6rem] p-4">{userPromptLabel}</p>
+        <p className="line-clamp-3 max-h-[6rem] p-4 text-primary-500">{userPromptLabel}</p>
       </div>
       <div className="p-4">
         <Search label="Name for the prompt" />
