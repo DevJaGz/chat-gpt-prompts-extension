@@ -3,6 +3,7 @@ import { MESSAGE_TYPE } from "../../constants/messages.constant";
 import { runOnExtension } from "../../utils/production.util";
 import { useState } from "react";
 import SaveDialog from "./Save-dialog";
+import Header from "./Header";
 
 function App() {
   const [modalType, setModalType] = useState("other");
@@ -28,11 +29,16 @@ function App() {
     };
   }, []);
 
+
+  const closeCallback = () => { 
+    setModalType("other");
+  };
+
   if (modalType === "save") {
     return (
       <>
-      <div className="fixed inset-0 text-base h-full">
-            <SaveDialog />
+      <div className="fixed inset-0 text-base h-ful">
+            <SaveDialog closeCallback={closeCallback} />
       </div>
       </>
     );
