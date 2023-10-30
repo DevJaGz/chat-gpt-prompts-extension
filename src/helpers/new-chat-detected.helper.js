@@ -87,6 +87,10 @@ const hasConversationButton = ($conversation) => {
   );
 };
 
+const getConversationDataId = ($conversation) => {
+  return $conversation.getAttribute(`data-${CONVERSATIONS_MATCHER.dataAttr}`);
+};
+
 const drawConversationButtons = ($conversation) => {
   if (hasConversationButton($conversation)) {
     return;
@@ -97,21 +101,25 @@ const drawConversationButtons = ($conversation) => {
     return;
   }
   const clickHandler = () => {
-    saveConversationDialog(
-      {
-        type: MESSAGE_TYPE.showDialogToSaveConversation,
+    const dialogMessage = {
+      type: MESSAGE_TYPE.showDialogToSaveConversation,
+      chatId: currentChatId,
+      userPrompt,
+    };
+    saveConversationDialog(dialogMessage, ({ hasSave, promptName }) => {
+      const messageToSave = {
         chatId: currentChatId,
         userPrompt,
+        promptName,
+        conversationDataId: getConversationDataId($conversation),
         createdDate: new Date().toISOString(),
-      },
-      ({ hasSave, promptName }) => {
-        if (hasSave) {
-          console.log("Saving conversation with name: ", promptName);
-          return;
-        }
-        console.log("Cancel saving");
+      };
+      if (hasSave) {
+        console.log("Saving conversation with name: ", messageToSave);
+        return;
       }
-    );
+      console.log("Cancel saving");
+    });
   };
   const $button = createButton(CONVERSATION_BUTTON_LABEL, { clickHandler });
   $conversation.appendChild($button);
