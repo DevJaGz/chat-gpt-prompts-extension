@@ -1,24 +1,23 @@
 import { defaultDateFormat } from "../../utils/dates.util";
+import PromptDisplayed from "./Prompt-displayed";
 
-function Prompt({
-  prompt
-}) {
+function Prompt({ prompt }) {
 
-  const {chatId, conversationDataId, promptName, createdDate, userPrompt } = prompt;
+  const { chatId, conversationDataId, promptName, createdDate } = prompt;
   const id = `${promptName}-${chatId}-${conversationDataId}`;
-  
-  const addDummy   = () => {
-    chrome.storage.local.set({dummy: 'dummy'}, function() {
-      console.log('Value is set to ' + 'dummy');
-    });
-  }
 
-  const removeDummy   = () => {
-    chrome.storage.local.remove('dummy', function() {
-      console.log('Value is REMOVED ' + 'dummy');
-    });
-  }
 
+  const addDummy = () => {
+    chrome.storage.local.set({ dummy: "dummy" }, function () {
+      console.log("Value is set to " + "dummy");
+    });
+  };
+
+  const removeDummy = () => {
+    chrome.storage.local.remove("dummy", function () {
+      console.log("Value is REMOVED " + "dummy");
+    });
+  };
 
   return (
     <div className="rounded py-2 px-3 bg-primary-800" id={id}>
@@ -30,12 +29,7 @@ function Prompt({
           {defaultDateFormat(createdDate)}
         </small>
       </header>
-      <details className="max-h-32">
-        <summary className="text-primary-500 cursor-pointer">Click here to see the prompt</summary>
-        <p className="text-base my-2">
-          {userPrompt}
-        </p>
-      </details>
+      <PromptDisplayed prompt={prompt} />
       <footer className="mt-4 flex gap-4">
         <button className="confirmation-btn text-sm" onClick={addDummy}>
           <svg
@@ -54,7 +48,6 @@ function Prompt({
             <path d="M5 7l5 5l-5 5"></path>
             <path d="M13 17l6 0"></path>
           </svg>
-
         </button>
         <button className="default-btn text-sm">
           <svg
