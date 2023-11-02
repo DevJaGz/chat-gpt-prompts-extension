@@ -23,14 +23,15 @@ function PromptDisplayed({ prompt }){
   }, [userPrompt]);
 
   const handleToggle = () => {
-    setIsOpen(!isOpen);
+    setTimeout(() => {
+      setIsOpen(!isOpen);
+    }, 0);
   };
 
-  console.log('PROMPT DISPLAYED INITIALIZED', needPromptPreview)
   const promptDisplayed = needPromptPreview ? (
     <details open={isOpen}>
-      <summary onClick={handleToggle} className={`${isOpen ? 'text-primary-50': 'text-primary-500'} cursor-pointer`}>
-        {isOpen ? promptPreview : `${promptPreview}...(click to expand)`})
+      <summary onClick={handleToggle} className="text-primary-500 cursor-pointer">
+        {isOpen ? 'Complete Prompt:' : `${promptPreview}`} {isOpen ? '' : <strong>...(👆 Click to expand )</strong>}
       </summary>
       <p className={`text-base mb-2`}>{userPrompt}</p>
     </details>
