@@ -107,7 +107,7 @@ const drawConversationButtons = ($conversation) => {
       chatId: currentChatId,
       userPrompt,
     };
-    savePromptDialog(dialogMessage, ({ hasSave, promptName }) => {
+    savePromptDialog(dialogMessage, async ({ hasSave, promptName }) => {
       const messageToSave = {
         chatId: currentChatId,
         userPrompt,
@@ -116,7 +116,10 @@ const drawConversationButtons = ($conversation) => {
         createdDate: new Date().toISOString(),
       };
       if (hasSave) {
-        savePrompt(messageToSave);
+        const isPromptSaved = await savePrompt(messageToSave);
+        if (isPromptSaved) {
+          console.log("Prompt saved");
+        }
         return;
       }
       console.log("Cancel saving");

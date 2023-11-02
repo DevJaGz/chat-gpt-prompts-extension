@@ -15,31 +15,76 @@ export const initializeStorage = async () => {
     },
   });
   log("storage.util.js", "initialized");
-  chrome.storage.local.get([STORAGE_KEY], (result) => {
-    console.log("STORAGE_KEY result", result[STORAGE_KEY]);
+  const storageData = await chrome.storage.local.get([STORAGE_KEY]);
+  log("storage.util.js -- storageData", storageData[STORAGE_KEY]);
+};
+
+const setNewState = async (newState) => {
+  await chrome.storage.local.set({
+    [STORAGE_KEY]: newState,
   });
 };
 
-const setNewState = async (state) => {
-  await chrome.storage.local.set({
-    [STORAGE_KEY]: state,
-  });
+const hasCurentStatePromptName = (state, prompt) => {
+  return state.prompts.some((p) => p.promptName === prompt.promptName);
+};
+
+const getCurrentState = async () => {
+  const storageData = await chrome.storage.local.get([STORAGE_KEY]);
+  return storageData[STORAGE_KEY];
 };
 
 export const savePrompt = (prompt) => {
-  chrome.storage.local.get([STORAGE_KEY], (result) => {
-    const state = result[STORAGE_KEY];
+  return new Promise(async (resolve) => {
+    const state = await getCurrentState();
+    if (hasCurentStatePromptName(state, prompt)) {
+      log("savePrompt", "prompt already exists");
+      return resolve(null);
+    }
     const newState = {
       ...state,
       prompts: [...state.prompts, prompt],
     };
     console.log("savePrompt", newState);
-    // setNewState(newState);
+    await setNewState(newState);
+    resolve(true);
   });
 };
 
-export const getConversations = () => {
-  chrome.storage.get([STORAGE_KEY], (result) => {
-    log("storage.util.js", result);
+export const getPrompts = async ({
+  prompName = null,
+  chatId = null,
+  conversationDataId = null,
+} = {}) => {
+  const state = await getCurrentState();
+  return state?.prompts?.filter(
+    (p) =>
+      (!prompName || p.promptName === prompName) &&
+      (!chatId || p.chatId === chatId) &&
+      (!conversationDataId || p.conversationDataId === conversationDataId)
+  );
+};
+
+export const removePrompt = async ({
+  prompName = null,
+  chatId = null,
+  conversationDataId = null,
+} = {}) => {
+  return new Promise(async () => {
+    if (!prompName && !chatId && !conversationDataId) {
+      throw new Error("At least one of the arguments must be provided");
+    }
+    const state = await getCurrentState();
+    const newState = {
+      ...state,
+      prompts: state.prompts.filter(
+        (p) =>
+          (!prompName || p.promptName !== prompName) &&
+          (!chatId || p.chatId !== chatId) &&
+          (!conversationDataId || p.conversationDataId !== conversationDataId)
+      ),
+    };
+    await setNewState(newState);
+    resolve(true);
   });
 };
