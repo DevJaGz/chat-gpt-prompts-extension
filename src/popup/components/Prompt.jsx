@@ -1,3 +1,4 @@
+import { defaultDateFormat } from "../../utils/dates.util";
 
 function Prompt({
   prompt
@@ -26,7 +27,7 @@ function Prompt({
           {promptName}
         </h4>
         <small className="text-primary-500 text-ellipsis overflow-hidden whitespace-nowrap max-w-[100px] rtl">
-          {createdDate}
+          {defaultDateFormat(createdDate)}
         </small>
       </header>
       <details className="max-h-32">
