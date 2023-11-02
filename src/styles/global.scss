@@ -68,6 +68,32 @@
     }
   }
 
+  .bottom-overlay-800 {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2.5rem;
+      bottom: 0;
+      left: 0;
+      @apply bg-gradient-to-t from-primary-800 to-primary-700/5;
+    }
+  }
+
+  .left-overlay-800 {
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 3rem;
+      height: 100%;
+      bottom: 0;
+      left: calc(0% - 3rem);
+      @apply bg-gradient-to-l from-primary-800 to-primary-700/5;
+    }
+  }
+
   .bottom-overlay-900 {
     position: relative;
     &::after {

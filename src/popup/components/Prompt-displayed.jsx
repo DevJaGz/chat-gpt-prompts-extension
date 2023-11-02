@@ -10,8 +10,6 @@ function PromptDisplayed({ prompt }){
   const [needPromptPreview, setNeedPromptPreview] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  let summaryOnToogleClassName = 'text-primary-500';
-
   useEffect(() => {
     if (userPrompt.length <= maxCharsForPreviewPrompt) {
       setNeedPromptPreview(false);
@@ -31,7 +29,7 @@ function PromptDisplayed({ prompt }){
   const promptDisplayed = needPromptPreview ? (
     <details open={isOpen}>
       <summary onClick={handleToggle} className="text-primary-500 cursor-pointer">
-        {isOpen ? 'Complete Prompt:' : `${promptPreview}`} {isOpen ? '' : <strong>...(👆 Click to expand )</strong>}
+        {isOpen ? 'Complete Prompt:' : promptPreview} {isOpen ? '' : <strong className="left-overlay-800">(👆 Click to expand )</strong>}
       </summary>
       <p className={`text-base mb-2`}>{userPrompt}</p>
     </details>
