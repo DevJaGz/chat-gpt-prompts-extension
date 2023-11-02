@@ -26,12 +26,27 @@ function PromptDisplayed({ prompt }){
     }, 0);
   };
 
+  const summaryDisplayedClosed = <>
+      <span className="animate-duration-500 animate-fade-up max-w-full">
+        <span>{promptPreview}</span>
+        <strong className="left-overlay-800"> (👆 Click to expand ) </strong>
+      </span>
+  </>
+
+  const summaryDisplayedOpened = <>
+  <span className="animate-duration-500 animate-fade-down">
+    Complete Prompt:
+  </span>
+  </>
+
+  const summaryDisplayed = needPromptPreview && isOpen ? summaryDisplayedOpened : summaryDisplayedClosed;
+
   const promptDisplayed = needPromptPreview ? (
     <details open={isOpen}>
       <summary onClick={handleToggle} className="text-primary-500 cursor-pointer">
-        {isOpen ? 'Complete Prompt:' : promptPreview} {isOpen ? '' : <strong className="left-overlay-800">(👆 Click to expand )</strong>}
+          {summaryDisplayed}
       </summary>
-      <p className={`text-base mb-2 animate-duration-500 ${isOpen ? 'animate-fade-right':'animate-fade-left'}`}>{userPrompt}</p>
+      <p className={`text-base mb-2 animate-duration-500 ${isOpen ? 'animate-fade-right':'animate-fade-up'}`}>{userPrompt}</p>
     </details>
   ) : (
     <p className="text-base my-2">{userPrompt}</p>
