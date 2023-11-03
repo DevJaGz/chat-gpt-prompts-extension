@@ -6,19 +6,6 @@ function Prompt({ prompt }) {
   const { chatId, conversationDataId, promptName, createdDate } = prompt;
   const id = `${promptName}-${chatId}-${conversationDataId}`;
 
-
-  const addDummy = () => {
-    chrome.storage.local.set({ dummy: "dummy" }, function () {
-      console.log("Value is set to " + "dummy");
-    });
-  };
-
-  const removeDummy = () => {
-    chrome.storage.local.remove("dummy", function () {
-      console.log("Value is REMOVED " + "dummy");
-    });
-  };
-
   return (
     <div className="rounded py-2 px-3 bg-primary-800" id={id}>
       <header className="flex justify-between items-center flex-nowrap gap-1">
@@ -31,7 +18,7 @@ function Prompt({ prompt }) {
       </header>
       <PromptDisplayed prompt={prompt} />
       <footer className="mt-4 flex gap-4">
-        <button className="confirmation-btn text-sm" onClick={addDummy}>
+        <button className="confirmation-btn text-sm">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-prompt"
@@ -67,7 +54,7 @@ function Prompt({ prompt }) {
             <path d="M13.5 6.5l4 4"></path>
           </svg>
         </button> */}
-        <button className="ml-auto reject-btn text-sm" onClick={removeDummy}>
+        <button className="ml-auto reject-btn text-sm">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-trash"
