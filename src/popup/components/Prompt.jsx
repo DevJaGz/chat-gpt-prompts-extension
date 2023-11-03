@@ -49,7 +49,7 @@ function Prompt({ prompt }) {
             <path d="M13 17l6 0"></path>
           </svg>
         </button>
-        <button className="default-btn text-sm">
+        {/* <button className="default-btn text-sm">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-pencil"
@@ -66,7 +66,7 @@ function Prompt({ prompt }) {
             <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
             <path d="M13.5 6.5l4 4"></path>
           </svg>
-        </button>
+        </button> */}
         <button className="ml-auto reject-btn text-sm" onClick={removeDummy}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
