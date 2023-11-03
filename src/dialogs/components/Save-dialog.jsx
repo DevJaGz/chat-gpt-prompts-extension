@@ -46,7 +46,7 @@ function SaveDialog({ dialogData }) {
     console.log("SEARCH CALLBACK", value)
 
     setSearchValue(value);
-    const isPromptAlreadyCreated = currentPrompts.find(prompt => prompt?.promptName.toLowerCase() === value?.toLowerCase());
+    const isPromptAlreadyCreated = currentPrompts.find(prompt => prompt?.promptName === value);
     if (value.length > 0 && !isPromptAlreadyCreated) {
       setIsFormValid(true);
       setSearchErrorLabel("");
