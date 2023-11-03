@@ -1,7 +1,9 @@
 import Search from "../../components/Search";
 import Header from "./Header";
 
-function SaveDialog({ closeCallback, saveCallback, userPromptMessage, searchCallback, initialSearchValue }) {
+function SaveDialog({ closeCallback, saveCallback, userPromptMessage, searchCallback, initialSearchValue, isFormValid }) {
+
+
   return (
     <div class="bg-primary-900 text-primary-100 h-full flex flex-col">
       <Header title="Save Prompt" closeCallback={closeCallback} />
@@ -14,7 +16,7 @@ function SaveDialog({ closeCallback, saveCallback, userPromptMessage, searchCall
       <div className="px-4 pb-4 flex justify-end items-end flex-1">
         <div className="flex gap-4 items-center">
           <button className="default-btn" onClick={closeCallback}>Cancel</button>
-          <button className="confirmation-btn" onClick={saveCallback}>Save</button>
+          <button className="confirmation-btn" onClick={saveCallback} disabled={!isFormValid}>{isFormValid} Save</button>
         </div>
       </div>
     </div>

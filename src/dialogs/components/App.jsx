@@ -8,6 +8,7 @@ function App() {
   const [modalType, setModalType] = useState("");
   const [userPromptMessage, setUserPromptMessage] = useState("");
   const [searchValue, setSearchValue] = useState(null);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
     console.log("USE EFFECT REACT", modalType);
@@ -40,6 +41,7 @@ function App() {
     setModalType("");
     setUserPromptMessage("");
     setSearchValue(null);
+    setIsFormValid(false);
   };
 
   const closeCallback = async () => { 
@@ -55,6 +57,12 @@ function App() {
   };
 
   const searchCallback = (value) => {
+    console.log("SEARCH CALLBACK", value)
+    if (value.length > 0) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
     setSearchValue(value);
   }
 
@@ -62,7 +70,7 @@ function App() {
     return (
       <>
       <div className="fixed inset-0 text-base h-full">
-            <SaveDialog closeCallback={closeCallback} saveCallback={saveCallback} searchCallback={searchCallback} initialSearchValue={searchValue} userPromptMessage={userPromptMessage}  />
+            <SaveDialog closeCallback={closeCallback} saveCallback={saveCallback} searchCallback={searchCallback} initialSearchValue={searchValue} userPromptMessage={userPromptMessage}  isFormValid={isFormValid} />
       </div>
       </>
     );
