@@ -1,5 +1,6 @@
 function Search({ label = "Search for a Prompt", searchCallback, initialValue, errorLabel}) {
  const currentValue = initialValue || "";
+ const currentErrorLabel = errorLabel || "";
   return (
     <form className="flex flex-col gap-1 animate-fade-right animate-duration-500 ">
       <label htmlFor="search">{label}</label>
@@ -20,7 +21,7 @@ function Search({ label = "Search for a Prompt", searchCallback, initialValue, e
         focus:ring-0
         focus:border-accent-green-500 "
       />
-      {errorLabel && <p className="text-accent-red-400 text-sm">{errorLabel}</p>}
+      {currentErrorLabel && <p className="text-accent-red-400 text-sm">{currentErrorLabel}</p>}
     </form>
   );
 }

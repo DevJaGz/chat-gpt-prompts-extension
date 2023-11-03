@@ -19,15 +19,26 @@ function SaveDialog({ dialogData }) {
     });
   }, [dialogData]);
 
+  const userPromptAlreadySavedMatchFn = prompt => prompt?.conversationDataId === dialogData.conversationDataId && prompt?.chatId === dialogData.chatId
+
   const getCurrentPrompts = async () => {
     const currentPrompts = await getPrompts();
     setCurrentPrompts(currentPrompts);
+    console.log("CURRENT PROMPTS", currentPrompts)
+    console.log("dialogData", dialogData)
+    const userPromptAlreadySaved = currentPrompts.find(userPromptAlreadySavedMatchFn);
+    if (userPromptAlreadySaved) {
+      console.log("EDIT MODE", userPromptAlreadySaved)
+      const { promptName } = userPromptAlreadySaved;
+      setSearchValue(promptName);
+      searchCallback(promptName);
+    }
   }
 
   const reset = async () => { 
     setSearchValue(null);
     setIsFormValid(false);
-    console.log("RESET", searchValue)
+    setSearchErrorLabel("");
   };
 
   const closeCallback = async () => { 
@@ -46,13 +57,16 @@ function SaveDialog({ dialogData }) {
     console.log("SEARCH CALLBACK", value)
 
     setSearchValue(value);
-    const isPromptAlreadyCreated = currentPrompts.find(prompt => prompt?.promptName === value);
-    if (value.length > 0 && !isPromptAlreadyCreated) {
+    // If userPromptAlreadySavedMatchFn return true means the Prompt is already saved so its PromptName can be same as the current value
+    const isPromptNameAlreadyCreated = currentPrompts.some(prompt => !userPromptAlreadySavedMatchFn(prompt) && prompt?.promptName === value);
+    if (value?.length > 0 && !isPromptNameAlreadyCreated) {
       setIsFormValid(true);
       setSearchErrorLabel("");
+      console.log("VALID")
     } else {
       setIsFormValid(false);
-      isPromptAlreadyCreated ? setSearchErrorLabel("Prompt already exists"): setSearchErrorLabel("");
+      console.log("INVALID")
+      isPromptNameAlreadyCreated ? setSearchErrorLabel("Prompt already exists"): setSearchErrorLabel("");
     }
 
   }

@@ -96,15 +96,13 @@ const drawConversationButtons = ($conversation) => {
   if (hasConversationButton($conversation)) {
     return;
   }
-  const userPrompt = extractUserPrompt($conversation);
-  if (!userPrompt) {
-    console.error("Could not find user prompt");
-    return;
-  }
+
   const clickHandler = () => {
+    const userPrompt = extractUserPrompt($conversation);
     const dialogMessage = {
       type: MESSAGE_TYPE.showDialogToSaveConversation,
       chatId: currentChatId,
+      conversationDataId: getConversationDataId($conversation),
       userPrompt,
     };
     savePromptDialog(dialogMessage, async ({ hasSave, promptName }) => {

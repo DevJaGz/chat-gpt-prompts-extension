@@ -38,14 +38,24 @@ export const savePrompt = (prompt) => {
   return new Promise(async (resolve) => {
     const state = await getCurrentState();
     if (hasCurentStatePromptName(state, prompt)) {
-      log("savePrompt", "prompt already exists");
-      return resolve(null);
+      const newState = {
+        ...state,
+        prompts: state.prompts.map((p) => {
+          if (p.promptName === prompt.promptName) {
+            return prompt;
+          }
+          return p;
+        }),
+      };
+      console.log("Prompt overwritten", newState);
+      await setNewState(newState);
+      return resolve(true);
     }
     const newState = {
       ...state,
       prompts: [...state.prompts, prompt],
     };
-    console.log("savePrompt", newState);
+    console.log("Prompt Saved", newState);
     await setNewState(newState);
     resolve(true);
   });
