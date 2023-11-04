@@ -1,7 +1,8 @@
 import {
   CONVERSATIONS_MATCHER,
   CONVERSATION_BUTTON_CSS_CLASS,
-  CONVERSATION_BUTTON_LABEL,
+  CONVERSATION_BUTTON_LABEL_DEFAULT,
+  CONVERSATION_BUTTON_LABEL_SAVED,
   USER_PROMPT_MATCHER,
 } from "../constants/conversations.constant";
 import { MESSAGE_TYPE } from "../constants/messages.constant";
@@ -68,16 +69,6 @@ const getConversations$ = (timeout = 10_000) => {
   });
 };
 
-const createButton = (label, { clickHandler } = {}) => {
-  const $button = document.createElement("button");
-  $button.textContent = label;
-  $button.classList.add(CONVERSATION_BUTTON_CSS_CLASS);
-  if (clickHandler) {
-    $button.addEventListener("click", clickHandler);
-  }
-  return $button;
-};
-
 const extractUserPrompt = ($conversation) => {
   return $conversation.querySelector(USER_PROMPT_MATCHER.attr)?.textContent;
 };
@@ -92,11 +83,10 @@ const getConversationDataId = ($conversation) => {
   return $conversation.getAttribute(`data-${CONVERSATIONS_MATCHER.dataAttr}`);
 };
 
-const drawConversationButtons = ($conversation) => {
-  if (hasConversationButton($conversation)) {
-    return;
-  }
-
+const handleButtonCreation = ($conversation) => {
+  const $button = document.createElement("button");
+  $button.textContent = CONVERSATION_BUTTON_LABEL_DEFAULT;
+  $button.classList.add(CONVERSATION_BUTTON_CSS_CLASS);
   const clickHandler = () => {
     const userPrompt = extractUserPrompt($conversation);
     const dialogMessage = {
@@ -105,25 +95,40 @@ const drawConversationButtons = ($conversation) => {
       conversationDataId: getConversationDataId($conversation),
       userPrompt,
     };
-    savePromptDialog(dialogMessage, async ({ hasSave, promptName }) => {
-      const messageToSave = {
-        chatId: currentChatId,
-        userPrompt,
-        promptName,
-        conversationDataId: getConversationDataId($conversation),
-        createdDate: new Date().toISOString(),
-      };
-      if (hasSave) {
-        const isPromptSaved = await savePrompt(messageToSave);
-        if (isPromptSaved) {
-          console.log("Prompt saved");
+    savePromptDialog(
+      dialogMessage,
+      async ({ hasSave, promptName, wasPromptEdited }) => {
+        const messageToSave = {
+          chatId: currentChatId,
+          userPrompt,
+          promptName,
+          conversationDataId: getConversationDataId($conversation),
+          createdDate: new Date().toISOString(),
+        };
+        if (hasSave) {
+          const isPromptSaved = await savePrompt(messageToSave);
+          if (isPromptSaved) {
+            const currentButtonLabel = $button.textContent;
+            $button.textContent = wasPromptEdited
+              ? CONVERSATION_BUTTON_LABEL_SAVED
+              : currentButtonLabel;
+            console.log("Prompt saved");
+          }
+          return;
         }
-        return;
+        console.log("Cancel saving");
       }
-      console.log("Cancel saving");
-    });
+    );
   };
-  const $button = createButton(CONVERSATION_BUTTON_LABEL, { clickHandler });
+  $button.addEventListener("click", clickHandler);
+  return $button;
+};
+
+const drawConversationButtons = ($conversation) => {
+  if (hasConversationButton($conversation)) {
+    return;
+  }
+  const $button = handleButtonCreation($conversation);
   $conversation.appendChild($button);
 };
 

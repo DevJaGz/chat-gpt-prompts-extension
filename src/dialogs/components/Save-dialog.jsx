@@ -12,6 +12,7 @@ function SaveDialog({ dialogData }) {
   const [searchValue, setSearchValue] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [searchErrorLabel, setSearchErrorLabel] = useState('');
+  let wasPromptEdited = false;
 
   useEffect(() => {
     runOnExtension(() => {
@@ -32,6 +33,7 @@ function SaveDialog({ dialogData }) {
       const { promptName } = userPromptAlreadySaved;
       setSearchValue(promptName);
       searchCallback(promptName);
+      wasPromptEdited = true;
     }
   }
 
@@ -50,7 +52,7 @@ function SaveDialog({ dialogData }) {
   const saveCallback = async () => { 
     reset();
     const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
-    await chrome.tabs.sendMessage(tab.id, { type: MESSAGE_TYPE.closeDialog, hasSave: true, promptName: searchValue });
+    await chrome.tabs.sendMessage(tab.id, { type: MESSAGE_TYPE.closeDialog, hasSave: true, promptName: searchValue, wasPromptEdited  });
   };
 
   const searchCallback = (value) => {

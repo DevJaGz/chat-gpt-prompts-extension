@@ -7,7 +7,8 @@ export const USER_PROMPT_MATCHER = {
   attr: '[class=""]',
 };
 
-export const CONVERSATION_BUTTON_LABEL = "Save Prompt";
+export const CONVERSATION_BUTTON_LABEL_DEFAULT = "Save Prompt";
+export const CONVERSATION_BUTTON_LABEL_SAVED = "Edit";
 
 export const CONVERSATION_BUTTON_CSS_CLASS = "conversation-btn";
 
