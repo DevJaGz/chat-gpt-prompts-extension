@@ -18,7 +18,6 @@ function Prompt({ prompt, updatePromptsCallback }) {
       if (tab){
         await chrome.tabs.sendMessage(tab.id, { type: MESSAGE_TYPE.removePrompt, prompt });
       }
-      throw new Error("Tab not found, prompt can not be removed");
     }
   }
 
