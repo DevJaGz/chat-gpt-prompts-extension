@@ -6,6 +6,10 @@ import {
   USER_PROMPT_MATCHER,
 } from "../constants/conversations.constant";
 import { MESSAGE_TYPE } from "../constants/messages.constant";
+import {
+  getConversationDataId,
+  myConversationFilter,
+} from "../utils/conversation.util";
 import { getPrompts, savePrompt } from "../utils/storage.util";
 import { savePromptDialog } from "./conversations-dialog.helper";
 
@@ -22,23 +26,6 @@ const conversationFilter = ($conversation) => {
     `data-${CONVERSATIONS_MATCHER.dataAttr}`
   );
   return value?.includes(CONVERSATIONS_MATCHER.dataValue);
-};
-
-const isConversationEven = (dataTestidValue) => {
-  const regex = new RegExp(CONVERSATIONS_MATCHER.dataValue + "-(\\d+)");
-  const match = regex.exec(dataTestidValue);
-  const number = Number(match ? match[1] : 0);
-  return number % 2 === 0;
-};
-
-const myConversationFilter = ($conversation) => {
-  const value = $conversation.getAttribute(
-    `data-${CONVERSATIONS_MATCHER.dataAttr}`
-  );
-  return (
-    value?.includes(CONVERSATIONS_MATCHER.dataValue) &&
-    isConversationEven(value)
-  );
 };
 
 const getConversations = () => {
@@ -77,10 +64,6 @@ const hasConversationButton = ($conversation) => {
   return Boolean(
     $conversation.querySelector(`.${CONVERSATION_BUTTON_CSS_CLASS}`)
   );
-};
-
-const getConversationDataId = ($conversation) => {
-  return $conversation.getAttribute(`data-${CONVERSATIONS_MATCHER.dataAttr}`);
 };
 
 const handleButtonCreation = (

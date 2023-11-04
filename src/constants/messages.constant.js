@@ -3,4 +3,5 @@ export const MESSAGE_TYPE = {
   showDialogToSaveConversation: "showDialogToSaveConversation",
   closeDialog: "closeDialog",
   resetDialog: "resetDialog",
+  removePrompt: "removePrompt",
 };

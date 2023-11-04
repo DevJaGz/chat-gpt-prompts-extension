@@ -1,10 +1,26 @@
+import { MESSAGE_TYPE } from "../../constants/messages.constant";
 import { defaultDateFormat } from "../../utils/dates.util";
+import { notifyMessage } from "../../utils/notifications.util";
+import { removePrompt } from "../../utils/storage.util";
 import PromptDisplayed from "./Prompt-displayed";
 
-function Prompt({ prompt }) {
+function Prompt({ prompt, updatePromptsCallback }) {
 
   const { chatId, conversationDataId, promptName, createdDate } = prompt;
   const id = `${promptName}-${chatId}-${conversationDataId}`;
+
+  const removePromptFromStorage = async () => {
+    console.log("removePrompt", prompt);
+    const isRemoved = await removePrompt({ chatId, conversationDataId });
+    if (isRemoved){
+      updatePromptsCallback();
+      const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
+      if (tab){
+        await chrome.tabs.sendMessage(tab.id, { type: MESSAGE_TYPE.removePrompt, prompt });
+      }
+      throw new Error("Tab not found, prompt can not be removed");
+    }
+  }
 
   return (
     <div className="rounded py-2 px-3 bg-primary-800" id={id}>
@@ -54,7 +70,7 @@ function Prompt({ prompt }) {
             <path d="M13.5 6.5l4 4"></path>
           </svg>
         </button> */}
-        <button className="ml-auto reject-btn text-sm">
+        <button className="ml-auto reject-btn text-sm" onClick={removePromptFromStorage}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-trash"

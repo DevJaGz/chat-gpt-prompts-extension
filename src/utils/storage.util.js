@@ -93,7 +93,7 @@ export const removePrompt = async ({
   chatId = null,
   conversationDataId = null,
 } = {}) => {
-  return new Promise(async () => {
+  return new Promise(async (resolve) => {
     if (!prompName && !chatId && !conversationDataId) {
       throw new Error("At least one of the arguments must be provided");
     }

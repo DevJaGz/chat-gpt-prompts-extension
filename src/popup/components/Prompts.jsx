@@ -1,7 +1,7 @@
 
 import Prompt from "./Prompt";
 
-function Prompts({prompts}) {
+function Prompts({ prompts, updatePromptsCallback}) {
   console.log('PROMPT INITIALIZED')
 
 
@@ -11,7 +11,7 @@ function Prompts({prompts}) {
       {
         prompts.map((prompt, index) => (
           <li className="pr-2 animate-fade-left animate-duration-500" key={index}>
-            <Prompt prompt={prompt} />
+            <Prompt prompt={prompt} updatePromptsCallback={updatePromptsCallback} />
           </li>
         ))
       }

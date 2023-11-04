@@ -10,10 +10,15 @@ function Main() {
 
   runOnExtension(() => {
     useEffect(async () => {
-      const currentPrompts = await getPrompts();
-      setPrompts(currentPrompts || []);
+      updatePrompts( );
     }, [])
   })
+
+
+  const updatePrompts = async () => {
+    const currentPrompts = await getPrompts();
+    setPrompts(currentPrompts || []);
+  }
 
   if (prompts?.length === 0) return (
     <main className="p-2 bg-primary-700 animate-fade-left animate-duration-500">
@@ -29,7 +34,7 @@ function Main() {
     <main className="p-2 bg-primary-700">
       <Search />
       <section className="bottom-overlay-700 overflow-x-hidden">
-        <Prompts prompts={prompts} />
+        <Prompts prompts={prompts} updatePromptsCallback={updatePrompts} />
       </section>
     </main>
   );
