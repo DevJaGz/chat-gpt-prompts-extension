@@ -101,26 +101,23 @@ const handleButtonCreation = (
       conversationDataId,
       userPrompt,
     };
-    savePromptDialog(
-      dialogMessage,
-      async ({ hasSave, promptName, wasPromptEdited }) => {
-        const messageToSave = {
-          chatId: currentChatId,
-          userPrompt,
-          promptName,
-          conversationDataId,
-          createdDate: new Date().toISOString(),
-        };
-        if (hasSave) {
-          const isPromptSaved = await savePrompt(messageToSave);
-          if (isPromptSaved) {
-            $button.textContent = CONVERSATION_BUTTON_LABEL_SAVED;
-          }
-          return;
+    savePromptDialog(dialogMessage, async ({ hasSave, promptName }) => {
+      const messageToSave = {
+        chatId: currentChatId,
+        userPrompt,
+        promptName,
+        conversationDataId,
+        createdDate: new Date().toISOString(),
+      };
+      if (hasSave) {
+        const isPromptSaved = await savePrompt(messageToSave);
+        if (isPromptSaved) {
+          $button.textContent = CONVERSATION_BUTTON_LABEL_SAVED;
         }
-        console.log("Cancel saving");
+        return;
       }
-    );
+      console.log("Cancel saving");
+    });
   };
   $button.addEventListener("click", clickHandler);
   return $button;
