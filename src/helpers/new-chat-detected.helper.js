@@ -6,7 +6,7 @@ import {
   USER_PROMPT_MATCHER,
 } from "../constants/conversations.constant";
 import { MESSAGE_TYPE } from "../constants/messages.constant";
-import { savePrompt } from "../utils/storage.util";
+import { getPrompts, savePrompt } from "../utils/storage.util";
 import { savePromptDialog } from "./conversations-dialog.helper";
 
 let currentChatId = "";
@@ -83,16 +83,22 @@ const getConversationDataId = ($conversation) => {
   return $conversation.getAttribute(`data-${CONVERSATIONS_MATCHER.dataAttr}`);
 };
 
-const handleButtonCreation = ($conversation) => {
+const handleButtonCreation = (
+  $conversation,
+  conversationDataId,
+  isPromptSaved
+) => {
   const $button = document.createElement("button");
-  $button.textContent = CONVERSATION_BUTTON_LABEL_DEFAULT;
+  $button.textContent = isPromptSaved
+    ? CONVERSATION_BUTTON_LABEL_SAVED
+    : CONVERSATION_BUTTON_LABEL_DEFAULT;
   $button.classList.add(CONVERSATION_BUTTON_CSS_CLASS);
   const clickHandler = () => {
     const userPrompt = extractUserPrompt($conversation);
     const dialogMessage = {
       type: MESSAGE_TYPE.showDialogToSaveConversation,
       chatId: currentChatId,
-      conversationDataId: getConversationDataId($conversation),
+      conversationDataId,
       userPrompt,
     };
     savePromptDialog(
@@ -102,17 +108,13 @@ const handleButtonCreation = ($conversation) => {
           chatId: currentChatId,
           userPrompt,
           promptName,
-          conversationDataId: getConversationDataId($conversation),
+          conversationDataId,
           createdDate: new Date().toISOString(),
         };
         if (hasSave) {
           const isPromptSaved = await savePrompt(messageToSave);
           if (isPromptSaved) {
-            const currentButtonLabel = $button.textContent;
-            $button.textContent = wasPromptEdited
-              ? CONVERSATION_BUTTON_LABEL_SAVED
-              : currentButtonLabel;
-            console.log("Prompt saved");
+            $button.textContent = CONVERSATION_BUTTON_LABEL_SAVED;
           }
           return;
         }
@@ -124,11 +126,22 @@ const handleButtonCreation = ($conversation) => {
   return $button;
 };
 
-const drawConversationButtons = ($conversation) => {
+const drawConversationButton = async ($conversation) => {
   if (hasConversationButton($conversation)) {
     return;
   }
-  const $button = handleButtonCreation($conversation);
+  const conversationDataId = getConversationDataId($conversation);
+  const currentPrompts = await getPrompts();
+  const isPromptSaved = currentPrompts.some(
+    (prompt) =>
+      prompt.chatId === currentChatId &&
+      prompt.conversationDataId === conversationDataId
+  );
+  const $button = handleButtonCreation(
+    $conversation,
+    conversationDataId,
+    isPromptSaved
+  );
   $conversation.appendChild($button);
 };
 
@@ -140,6 +153,6 @@ export const newChatDetectedHandler = async (chatId) => {
     return;
   }
   for (const conversation$ of conversations) {
-    drawConversationButtons(conversation$);
+    drawConversationButton(conversation$);
   }
 };

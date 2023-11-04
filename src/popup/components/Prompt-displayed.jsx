@@ -11,12 +11,12 @@ function PromptDisplayed({ prompt }){
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (userPrompt.length <= maxCharsForPreviewPrompt) {
+    if (userPrompt?.length <= maxCharsForPreviewPrompt) {
       setNeedPromptPreview(false);
       return;
     }
     setNeedPromptPreview(true);
-    const preview = userPrompt.slice(0, 100);
+    const preview = userPrompt?.slice(0, 100);
     setPromptPreview(preview);
   }, [userPrompt]);
 

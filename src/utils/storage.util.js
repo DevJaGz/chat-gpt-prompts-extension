@@ -29,6 +29,15 @@ const hasCurentStatePromptName = (state, prompt) => {
   return state.prompts.some((p) => p.promptName === prompt.promptName);
 };
 
+const findPromptIndex = (state, prompt) => {
+  console.log("GETTING FIND PROMPT INDEX", state, prompt);
+  return state.prompts.findIndex(
+    (p) =>
+      p.chatId === prompt.chatId &&
+      p.conversationDataId === prompt.conversationDataId
+  );
+};
+
 const getCurrentState = async () => {
   const storageData = await chrome.storage.local.get([STORAGE_KEY]);
   return storageData[STORAGE_KEY];
@@ -37,26 +46,30 @@ const getCurrentState = async () => {
 export const savePrompt = (prompt) => {
   return new Promise(async (resolve) => {
     const state = await getCurrentState();
-    if (hasCurentStatePromptName(state, prompt)) {
+    const promptIndex = findPromptIndex(state, prompt);
+    console.log("INDEX FOUND", promptIndex);
+    if (promptIndex !== -1) {
+      const currentPrompts = state.prompts;
       const newState = {
         ...state,
-        prompts: state.prompts.map((p) => {
-          if (p.promptName === prompt.promptName) {
-            return prompt;
-          }
-          return p;
-        }),
+        prompts: [
+          ...currentPrompts.slice(0, promptIndex),
+          prompt,
+          ...currentPrompts.slice(promptIndex + 1),
+        ],
       };
-      console.log("Prompt overwritten", newState);
+      console.log("EDITING.....", newState);
       await setNewState(newState);
+      console.log("EDITED");
       return resolve(true);
     }
     const newState = {
       ...state,
       prompts: [...state.prompts, prompt],
     };
-    console.log("Prompt Saved", newState);
+    console.log("CREATING.....", newState);
     await setNewState(newState);
+    console.log("CREATED");
     resolve(true);
   });
 };

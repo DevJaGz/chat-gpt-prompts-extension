@@ -15,7 +15,7 @@ function Main() {
     }, [])
   })
 
-  if (prompts.length === 0) return (
+  if (prompts?.length === 0) return (
     <main className="p-2 bg-primary-700 animate-fade-left animate-duration-500">
         <img src="/images/empty.gif" alt="Empty GIF" width={208}  className="w-52 object-contain mx-auto my-0"  />
         <div className="flex flex-col items-center justify-center h-full mt-4 mb-6">
