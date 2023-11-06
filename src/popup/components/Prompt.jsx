@@ -24,7 +24,7 @@ function Prompt({ prompt, updatePromptsCallback }) {
   return (
     <div className="rounded py-2 px-3 bg-primary-800" id={id}>
       <header className="flex justify-between items-center flex-nowrap gap-1">
-        <h4 className=" font-bold text-ellipsis overflow-hidden whitespace-nowrap max-w-[200px] text-primary-50">
+        <h4 className=" font-bold text-ellipsis overflow-hidden whitespace-nowrap max-w-[200px] text-primary-50" title={promptName}>
           {promptName}
         </h4>
         <small className="text-primary-500 text-ellipsis overflow-hidden whitespace-nowrap max-w-[100px] rtl">
