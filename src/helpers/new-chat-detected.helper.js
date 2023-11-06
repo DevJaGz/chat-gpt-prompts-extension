@@ -88,7 +88,7 @@ const handleButtonCreation = (
       const messageToSave = {
         chatId: currentChatId,
         userPrompt,
-        promptName: promptName.trim(),
+        promptName: promptName?.trim(),
         conversationDataId,
         createdDate: new Date().toISOString(),
       };
