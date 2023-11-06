@@ -15,7 +15,9 @@ const closeDialog = () => {
 
 const openDialog = () => {
   $dialog.classList.add("gptp-dialog--show");
-  $body.classList.add("gptp-dialog-open");
+  setTimeout(() => {
+    $body.classList.add("gptp-dialog-open");
+  }, 0);
 };
 
 export const insertBaseDialog = () => {
