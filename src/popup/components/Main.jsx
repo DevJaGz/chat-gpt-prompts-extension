@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Prompts from "./Prompts";
-import Search from "./Search";
 import { runOnExtension } from "../../utils/production.util";
 import { getPrompts } from "../../utils/storage.util";
 import { useEffect } from "react";
@@ -32,7 +31,7 @@ function Main() {
 
   return (
     <main className="p-2 bg-primary-700">
-      <Search />
+      {/* <Search /> */}
       <section className="bottom-overlay-700 overflow-x-hidden">
         <Prompts prompts={prompts} updatePromptsCallback={updatePrompts} />
       </section>

@@ -41,7 +41,7 @@ function Prompt({ prompt, updatePromptsCallback }) {
       </header>
       <PromptDisplayed prompt={prompt} />
       <footer className="mt-4 flex gap-4">
-        <button className="confirmation-btn text-sm" onClick={loadPromptInTextarea}>
+        <button className="confirmation-btn text-sm" onClick={loadPromptInTextarea} title="Load Prompt">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-prompt"
@@ -77,7 +77,7 @@ function Prompt({ prompt, updatePromptsCallback }) {
             <path d="M13.5 6.5l4 4"></path>
           </svg>
         </button> */}
-        <button className="ml-auto reject-btn text-sm" onClick={removePromptFromStorage}>
+        <button className="ml-auto reject-btn text-sm" onClick={removePromptFromStorage} title="Remove Prompt">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-trash"
