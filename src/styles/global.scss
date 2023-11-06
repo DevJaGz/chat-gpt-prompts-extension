@@ -114,11 +114,19 @@
     }
   }
 
+  body.gptp-dialog-open {
+    @apply pointer-events-none select-none;
+
+    & > .gptp-dialog {
+      @apply pointer-events-auto select-auto;
+    }
+  }
+
   .gptp-dialog {
-    @apply fixed z-50 w-screen h-screen rounded bg-transparent  grid place-items-center;
+    @apply fixed z-50 w-screen h-screen rounded bg-transparent  grid place-items-center pointer-events-none;
 
     .gptp-dialog-iframe {
-      @apply h-80 w-4/5 max-w-xl rounded bg-transparent animate-fade-up animate-duration-500;
+      @apply h-80 w-4/5 max-w-xl rounded bg-transparent animate-fade-up animate-duration-500 z-0;
     }
 
     &:not(.gptp-dialog--show) {
