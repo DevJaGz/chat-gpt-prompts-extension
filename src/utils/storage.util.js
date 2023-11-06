@@ -74,27 +74,17 @@ export const savePrompt = (prompt) => {
   });
 };
 
-export const getPrompts = async ({
-  prompName = null,
-  chatId = null,
-  conversationDataId = null,
-} = {}) => {
+export const getPrompts = async () => {
   const state = await getCurrentState();
-  return state?.prompts?.filter(
-    (p) =>
-      (!prompName || p.promptName === prompName) &&
-      (!chatId || p.chatId === chatId) &&
-      (!conversationDataId || p.conversationDataId === conversationDataId)
-  );
+  return state?.prompts || [];
 };
 
 export const removePrompt = async ({
-  prompName = null,
   chatId = null,
   conversationDataId = null,
 } = {}) => {
   return new Promise(async (resolve) => {
-    if (!prompName && !chatId && !conversationDataId) {
+    if (!chatId && !conversationDataId) {
       throw new Error("At least one of the arguments must be provided");
     }
     const state = await getCurrentState();
@@ -102,9 +92,7 @@ export const removePrompt = async ({
       ...state,
       prompts: state.prompts.filter(
         (p) =>
-          (!prompName || p.promptName !== prompName) &&
-          (!chatId || p.chatId !== chatId) &&
-          (!conversationDataId || p.conversationDataId !== conversationDataId)
+          !(p.chatId === chatId && p.conversationDataId === conversationDataId)
       ),
     };
     await setNewState(newState);
