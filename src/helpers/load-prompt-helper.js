@@ -21,7 +21,19 @@ export const loadPromptHandler = (prompt) => {
     textarea.innerText = updatedText;
 
     // Set the textarea's height based on the content
-    textarea.style.minHeight = textarea.scrollHeight + "px";
+    textarea.style.height = textarea.scrollHeight + "px";
+    textarea.style.maxHeight = "200px";
+    const nextSiblingElement = textarea.nextElementSibling;
+    if (nextSiblingElement.tagName === "BUTTON") {
+      const buttonListener = nextSiblingElement.addEventListener(
+        "click",
+        () => {
+          nextSiblingElement.removeEventListener("click", buttonListener);
+          nextSiblingElement.style.height = "auto";
+        }
+      );
+    }
+
     // Simulate a spacebar press
     // setTimeout(() => {
     //   const spaceKeyEvent = new KeyboardEvent("keydown", { key: " " });
