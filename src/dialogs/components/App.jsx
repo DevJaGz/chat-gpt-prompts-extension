@@ -43,12 +43,12 @@ function App() {
     return (
       <>
       <div className="fixed inset-0 text-base h-full">
-            <SaveDialog dialogData={dialogData} />
+            <SaveDialog dialogData={dialogData} resetCallback={reset} />
       </div>
       </>
     );
   }
-  return;
+  return <></>;
 }
 
 export default App;

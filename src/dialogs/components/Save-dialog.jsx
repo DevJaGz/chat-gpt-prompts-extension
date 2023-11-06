@@ -6,7 +6,7 @@ import { runOnExtension } from "../../utils/production.util";
 import { getPrompts } from '../../utils/storage.util';
 import { MESSAGE_TYPE } from "../../constants/messages.constant";
 
-function SaveDialog({ dialogData }) {
+function SaveDialog({ dialogData, resetCallback}) {
   console.log("SAVE DIALOG", dialogData)
   const [currentPrompts, setCurrentPrompts] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
@@ -41,6 +41,7 @@ function SaveDialog({ dialogData }) {
     setSearchValue(null);
     setIsFormValid(false);
     setSearchErrorLabel("");
+    resetCallback();
   };
 
   const closeCallback = async () => { 
