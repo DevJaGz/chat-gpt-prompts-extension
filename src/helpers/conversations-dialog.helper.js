@@ -6,13 +6,16 @@ let $dialog = null;
 let $iFrame = null;
 let currentCallback = () => {};
 let isBussy = false;
+const $body = document.body;
 
 const closeDialog = () => {
   $dialog.classList.remove("gptp-dialog--show");
+  $body.classList.remove("gptp-dialog-open");
 };
 
 const openDialog = () => {
   $dialog.classList.add("gptp-dialog--show");
+  $body.classList.add("gptp-dialog-open");
 };
 
 export const insertBaseDialog = () => {
