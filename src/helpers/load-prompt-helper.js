@@ -18,8 +18,21 @@ export const loadPromptHandler = (prompt) => {
       currentText.slice(cursorPosition);
     // Update the textarea's value
     textarea.value = updatedText;
+    textarea.innerText = updatedText;
 
     // Set the textarea's height based on the content
     textarea.style.minHeight = textarea.scrollHeight + "px";
+    // Simulate a spacebar press
+    // setTimeout(() => {
+    //   const spaceKeyEvent = new KeyboardEvent("keydown", { key: " " });
+    //   textarea.focus();
+    //   textarea.dispatchEvent(spaceKeyEvent);
+    //   const nextSiblingElement = textarea.nextElementSibling;
+    //   if (nextSiblingElement.tagName === "BUTTON") {
+    //     nextSiblingElement.style.background = "rgb(25, 195, 125)";
+    //     nextSiblingElement.style.color = "white";
+    //     nextSiblingElement.disabled = false;
+    //   }
+    // }, 0);
   }
 };
