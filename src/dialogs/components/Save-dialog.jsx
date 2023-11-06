@@ -7,7 +7,6 @@ import { getPrompts } from '../../utils/storage.util';
 import { MESSAGE_TYPE } from "../../constants/messages.constant";
 
 function SaveDialog({ dialogData, resetCallback}) {
-  console.log("SAVE DIALOG", dialogData)
   const [currentPrompts, setCurrentPrompts] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
@@ -25,11 +24,8 @@ function SaveDialog({ dialogData, resetCallback}) {
   const getCurrentPrompts = async () => {
     const currentPrompts = await getPrompts();
     setCurrentPrompts(currentPrompts);
-    console.log("CURRENT PROMPTS", currentPrompts)
-    console.log("dialogData", dialogData)
     const userPromptAlreadySaved = currentPrompts.find(userPromptAlreadySavedMatchFn);
     if (userPromptAlreadySaved) {
-      console.log("EDIT MODE", userPromptAlreadySaved)
       const { promptName } = userPromptAlreadySaved;
       setSearchValue(promptName);
       searchCallback(promptName);
@@ -57,18 +53,14 @@ function SaveDialog({ dialogData, resetCallback}) {
   };
 
   const searchCallback = (value) => {
-    console.log("SEARCH CALLBACK", value)
-
     setSearchValue(value);
     // If userPromptAlreadySavedMatchFn return true means the Prompt is already saved so its PromptName can be same as the current value
     const isPromptNameAlreadyCreated = currentPrompts.some(prompt => !userPromptAlreadySavedMatchFn(prompt) && prompt?.promptName === value);
     if (value?.length > 0 && !isPromptNameAlreadyCreated) {
       setIsFormValid(true);
       setSearchErrorLabel("");
-      console.log("VALID")
     } else {
       setIsFormValid(false);
-      console.log("INVALID")
       isPromptNameAlreadyCreated ? setSearchErrorLabel("Prompt already exists"): setSearchErrorLabel("");
     }
 

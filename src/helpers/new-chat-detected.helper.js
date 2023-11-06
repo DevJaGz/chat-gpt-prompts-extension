@@ -99,7 +99,6 @@ const handleButtonCreation = (
         }
         return;
       }
-      console.log("Cancel saving");
     });
   };
   $button.addEventListener("click", clickHandler);

@@ -8,7 +8,6 @@ import { log } from "./utils/notifications.util";
 let currentChatId = "";
 
 function messageListener(message, sender, sendResponse) {
-  console.log("content-script.js -- messageListener", message);
   const { type } = message;
   if (type === MESSAGE_TYPE.newChatDetected) {
     const { chatId } = message;

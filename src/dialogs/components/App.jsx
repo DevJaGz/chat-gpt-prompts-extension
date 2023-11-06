@@ -26,7 +26,6 @@ function App() {
     });
     // Cleanup the listener when the component unmounts
     return () => {
-      console.log("CLEAN UP REACT", modalType);
       runOnExtension(() => {
         chrome.runtime.onMessage.removeListener(messageListener);
       });

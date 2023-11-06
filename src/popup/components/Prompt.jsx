@@ -10,7 +10,6 @@ function Prompt({ prompt, updatePromptsCallback }) {
   const id = `${promptName}-${chatId}-${conversationDataId}`;
 
   const removePromptFromStorage = async () => {
-    console.log("removePrompt", prompt);
     const isRemoved = await removePrompt({ chatId, conversationDataId });
     if (isRemoved){
       updatePromptsCallback();
@@ -22,7 +21,6 @@ function Prompt({ prompt, updatePromptsCallback }) {
   }
 
   const loadPromptInTextarea = async () => {
-    console.log("loadPromptInTextarea", prompt);
     const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
     if (tab){
       await chrome.tabs.sendMessage(tab.id, { type: MESSAGE_TYPE.loadPrompt, prompt });

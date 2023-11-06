@@ -4,7 +4,6 @@ import { log } from "./notifications.util";
 let initialized = false;
 
 export const initializeStorage = async () => {
-  console.log("initializeStorage", initialized);
   if (initialized) {
     return;
   }
@@ -30,7 +29,6 @@ const hasCurentStatePromptName = (state, prompt) => {
 };
 
 const findPromptIndex = (state, prompt) => {
-  console.log("GETTING FIND PROMPT INDEX", state, prompt);
   return state.prompts.findIndex(
     (p) =>
       p.chatId === prompt.chatId &&
@@ -47,7 +45,6 @@ export const savePrompt = (prompt) => {
   return new Promise(async (resolve) => {
     const state = await getCurrentState();
     const promptIndex = findPromptIndex(state, prompt);
-    console.log("INDEX FOUND", promptIndex);
     if (promptIndex !== -1) {
       const currentPrompts = state.prompts;
       const newState = {
@@ -58,18 +55,14 @@ export const savePrompt = (prompt) => {
           ...currentPrompts.slice(promptIndex + 1),
         ],
       };
-      console.log("EDITING.....", newState);
       await setNewState(newState);
-      console.log("EDITED");
       return resolve(true);
     }
     const newState = {
       ...state,
       prompts: [...state.prompts, prompt],
     };
-    console.log("CREATING.....", newState);
     await setNewState(newState);
-    console.log("CREATED");
     resolve(true);
   });
 };

@@ -2,10 +2,6 @@
 import Prompt from "./Prompt";
 
 function Prompts({ prompts, updatePromptsCallback}) {
-  console.log('PROMPT INITIALIZED')
-
-
-
   return (
     <ul className="mt-6 flex flex-col gap-2 pb-8 max-h-[300px] overflow-y-auto overflow-x-hidden">
       {

@@ -7,7 +7,6 @@ export const notifyTabMessage = (tabId, message) => {
 };
 
 export const notifyMessage = (message) => {
-  console.log("notifyMessage....", message);
   const extensionId = chrome.runtime.id;
   chrome.runtime.sendMessage(extensionId, message);
 };
