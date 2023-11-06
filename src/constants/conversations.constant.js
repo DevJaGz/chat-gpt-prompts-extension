@@ -7,6 +7,10 @@ export const USER_PROMPT_MATCHER = {
   attr: '[class=""]',
 };
 
+export const TEXTAREA_MATCHER = {
+  id: "prompt-textarea",
+};
+
 export const CONVERSATION_BUTTON_LABEL_DEFAULT = "Save Prompt";
 export const CONVERSATION_BUTTON_LABEL_SAVED = "Edit";
 

@@ -4,4 +4,5 @@ export const MESSAGE_TYPE = {
   closeDialog: "closeDialog",
   resetDialog: "resetDialog",
   removePrompt: "removePrompt",
+  loadPrompt: "loadPrompt",
 };
